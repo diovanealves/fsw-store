@@ -1,20 +1,20 @@
 'use client'
 
 import {
-  MenuIcon,
-  ShoppingCartIcon,
-  LogInIcon,
   HomeIcon,
-  PercentIcon,
   ListOrderedIcon,
+  LogInIcon,
   LogOutIcon,
+  MenuIcon,
+  PercentIcon,
+  ShoppingCartIcon,
 } from 'lucide-react'
-import { Button } from './ui/button'
-import { Card } from './ui/card'
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './ui/sheet'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Button } from './ui/button'
+import { Card } from './ui/card'
 import { Separator } from './ui/separator'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './ui/sheet'
 
 export default function Header() {
   const { status, data } = useSession()
