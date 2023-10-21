@@ -4,12 +4,14 @@ import { ShoppingCartIcon } from 'lucide-react'
 import { useContext } from 'react'
 import CartItem from './cartItem'
 import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { ScrollArea } from './ui/scroll-area'
 import { Separator } from './ui/separator'
 
 export default function Cart() {
   const { products, subTotal, total, totalDiscount } = useContext(CartContext)
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex h-full flex-col gap-5">
       <Badge
         className="w-fit gap-1 border-2 border-primary px-3 py-[0.365rem] text-base uppercase"
         variant="outline"
@@ -18,19 +20,23 @@ export default function Cart() {
         Carrinho
       </Badge>
 
-      <div className="flex flex-col gap-4">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <CartItem
-              key={product.id}
-              product={ComputeProductTotalPrice(product as any) as any}
-            />
-          ))
-        ) : (
-          <p className="text-center font-semibold">
-            Você ainda não tem nenhum produto no carrinho.
-          </p>
-        )}
+      <div className="flex h-full max-h-full flex-col gap-4 overflow-hidden">
+        <ScrollArea className="h-full">
+          <div className="flex h-full flex-col gap-7">
+            {products.length > 0 ? (
+              products.map((product) => (
+                <CartItem
+                  key={product.id}
+                  product={ComputeProductTotalPrice(product as any) as any}
+                />
+              ))
+            ) : (
+              <p className="text-center font-semibold">
+                Você ainda não tem nenhum produto no carrinho.
+              </p>
+            )}
+          </div>
+        </ScrollArea>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -58,6 +64,8 @@ export default function Cart() {
           <p>R$ {total.toFixed(2)}</p>
         </div>
       </div>
+
+      <Button className="mt-8 font-bold uppercase">Finalizar compra</Button>
     </div>
   )
 }
