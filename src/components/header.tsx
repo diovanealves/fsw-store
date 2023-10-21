@@ -130,7 +130,7 @@ export default function Header() {
           </Button>
         </SheetTrigger>
 
-        <SheetContent>
+        <SheetContent className="w-[300px]">
           <Cart />
         </SheetContent>
       </Sheet>
