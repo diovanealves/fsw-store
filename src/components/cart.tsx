@@ -1,5 +1,7 @@
+import { createCheckout } from '@/actions/checkout'
 import { ComputeProductTotalPrice } from '@/helpers/product'
 import { CartContext } from '@/providers/cart'
+import { loadStripe } from '@stripe/stripe-js'
 import { ShoppingCartIcon } from 'lucide-react'
 import { useContext } from 'react'
 import CartItem from './cartItem'
@@ -10,6 +12,17 @@ import { Separator } from './ui/separator'
 
 export default function Cart() {
   const { products, subTotal, total, totalDiscount } = useContext(CartContext)
+
+  async function handleFinishPurchaseClick() {
+    const checkout = await createCheckout(products)
+
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    })
+  }
+
   return (
     <div className="flex h-full flex-col gap-5">
       <Badge
@@ -65,7 +78,12 @@ export default function Cart() {
         </div>
       </div>
 
-      <Button className="mt-8 font-bold uppercase">Finalizar compra</Button>
+      <Button
+        className="mt-8 font-bold uppercase"
+        onClick={handleFinishPurchaseClick}
+      >
+        Finalizar compra
+      </Button>
     </div>
   )
 }
