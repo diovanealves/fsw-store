@@ -14,9 +14,11 @@ const SheetTrigger = SheetPrimitive.Trigger
 const SheetClose = SheetPrimitive.Close
 
 const SheetPortal = ({
+  // @ts-expect-error - `classname` is not a valid prop for `DialogPortal`
   className,
   ...props
 }: SheetPrimitive.DialogPortalProps) => (
+  // @ts-expect-error - `classname` is not a valid prop for `DialogPortal`
   <SheetPrimitive.Portal className={cn(className)} {...props} />
 )
 SheetPortal.displayName = SheetPrimitive.Portal.displayName
@@ -142,6 +144,5 @@ export {
   SheetOverlay,
   SheetPortal,
   SheetTitle,
-  SheetTrigger
+  SheetTrigger,
 }
-
